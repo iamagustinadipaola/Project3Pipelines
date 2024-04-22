@@ -4,6 +4,11 @@ pipeline {
             maven "maven"
             jdk "jdk"
             }
+    environment {
+        imageName = "papryk04/frontend"
+        registryCredential = "papryk04"
+        dockerImage = ""
+    }
     stages{
         stage("Install dependencies"){
             steps{
