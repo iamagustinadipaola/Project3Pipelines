@@ -5,7 +5,7 @@ pipeline {
             jdk "jdk"
             }
     environment {
-        imageName = "papryk04/frontend"
+        imageName = "papryk04/frontendImage"
         registryCredential = "papryk04"
         dockerImage = ""
     }
@@ -27,6 +27,27 @@ pipeline {
                     junit '**/target/surefire-reports/TEST-*.xml'
                     archive 'target/*.jar'
                 }
+            }
+        }
+        stage("Building image"){
+            steps{
+                dir("frontend"){
+                script {
+                    dockerImage = docker.build imageName
+                }
+            }
+            }
+        }
+        stage("Deploy Image"){
+            steps{
+                dir("frontend"){
+                script{
+                    docker.withRegistry("https://registry.hub.docker.com", "dockerhub-credentials"){
+                        // Gets number of build which is always unique and pushes it to docker and makes sure each push is unique
+                        dockerImage.push("${env.BUILD_NUMBER}")
+                    }
+                }
+            }
             }
         }
     }
