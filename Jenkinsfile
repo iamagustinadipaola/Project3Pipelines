@@ -3,10 +3,10 @@ pipeline {
     stages{
         stage("Install dependencies"){
             steps{
-                dir('FrontEndAAs'){
+                dir('Frontend'){
                 bat 'npm install'
                 bat 'npm pack'}
-                dir('BigCartSaver_BE'){
+                dir('Backend'){
                     bat 'mvn package -Dmaven.test.skip'
                 }
             }
