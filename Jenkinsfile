@@ -1,6 +1,9 @@
 pipeline {
     agent any
-    tools { nodejs "node"}
+    tools { nodejs "node" 
+            maven "maven"
+            jdk "jdk"
+            }
     stages{
         stage("Install dependencies"){
             steps{
