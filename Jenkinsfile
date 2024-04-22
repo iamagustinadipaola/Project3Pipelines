@@ -5,7 +5,7 @@ pipeline {
             jdk "jdk"
             }
     environment {
-        imageName = "papryk04/frontendImage"
+        imageName = "papryk04/frontendimage"
         registryCredential = "papryk04"
         dockerImage = ""
     }
