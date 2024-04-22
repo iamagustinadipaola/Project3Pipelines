@@ -1,20 +1,21 @@
 pipeline {
     agent any
+    tools { nodejs "node"}
     stages{
         stage("Install dependencies"){
             steps{
                 dir('Frontend'){
-                bat 'npm install'
-                bat 'npm pack'}
+                sh 'npm install'
+                sh 'npm pack'}
                 dir('Backend'){
-                    bat 'mvn package -Dmaven.test.skip'
+                    sh 'mvn package -Dmaven.test.skip'
                 }
             }
         }
         stage("Testing"){
             steps{
                 dir('Backend'){
-                    bat 'mvn clean verify -DskipITs=true'
+                    sh 'mvn clean verify -DskipITs=true'
                     junit '**/target/surefire-reports/TEST-*.xml'
                     archive 'target/*.jar'
                 }
