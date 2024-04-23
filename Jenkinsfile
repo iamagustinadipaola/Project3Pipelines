@@ -31,7 +31,7 @@ pipeline {
         }
         stage("Building image"){
             steps{
-                dir("frontend"){
+                dir("Frontend"){
                 script {
                     dockerImage = docker.build imageName
                 }
@@ -40,7 +40,7 @@ pipeline {
         }
         stage("Deploy Image"){
             steps{
-                dir("frontend"){
+                dir("Frontend"){
                 script{
                     docker.withRegistry("https://registry.hub.docker.com", "dockerhub-credentials"){
                         // Gets number of build which is always unique and pushes it to docker and makes sure each push is unique
