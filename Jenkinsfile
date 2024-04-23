@@ -32,7 +32,9 @@ pipeline {
         stage("Building image"){
             steps{
                 dir("frontend"){
-                    sh "docker build"
+                script {
+                    dockerImage = docker.build imageName
+                }
             }
             }
         }
