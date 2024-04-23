@@ -31,7 +31,7 @@ pipeline {
         }
         stage("Building image"){
             steps{
-                bat "docker build -t frontend-image ./Frontend"
+                sh "docker build -t frontend-image ./Frontend"
             }
         }
         stage("Deploy Image"){
