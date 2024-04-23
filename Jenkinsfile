@@ -31,6 +31,8 @@ pipeline {
         }
         stage("Building image"){
             steps{
+                sh "start docker.service" 
+
                 sh "docker build -t frontend-image ./Frontend"
             }
         }
