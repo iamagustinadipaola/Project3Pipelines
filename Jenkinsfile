@@ -33,7 +33,8 @@ pipeline {
             steps{
                 dir("Frontend"){
                 script {
-                    dockerImage = docker.build imageName
+                    docker.withServer('tcp://127.0.0.1:2375') {
+                    dockerImage = docker.build imageName}
                 }
             }
             }
