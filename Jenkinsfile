@@ -31,17 +31,8 @@ pipeline {
         }
         stage("Building image"){
             steps{
-<<<<<<< HEAD
                 sh "start docker.service" 
-
                 sh "docker build -t frontend-image ./Frontend"
-=======
-                dir("Frontend"){
-                script {
-                    dockerImage = docker.build imageName
-                }
-            }
->>>>>>> b090479ecb1855cd4b87ad38129f7f092e55635a
             }
         }
         stage("Deploy Image"){
