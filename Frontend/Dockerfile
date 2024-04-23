@@ -12,6 +12,8 @@ RUN npm install
 # Moves over all other files to directory
 COPY . /frontendapp
 
+RUN npm run build
+
 # 3000 being react default port
 EXPOSE 3000
 
