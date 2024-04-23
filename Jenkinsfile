@@ -31,11 +31,9 @@ pipeline {
         }
         stage("Building image"){
             steps{
-                dir("Frontend"){
                 script {
-                    dockerImage = docker.build imageName
+                    sh "docker build -t frontend-image ./Frontend"
                 }
-            }
             }
         }
         stage("Deploy Image"){
