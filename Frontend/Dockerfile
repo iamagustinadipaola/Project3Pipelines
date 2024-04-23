@@ -18,7 +18,7 @@ RUN npm run build
 EXPOSE 3000
 
 # runs the react app, executes commands once the container has started IMPORTANT: with CMD everything is "," separated
-CMD ["npm", "run", "start"]
+CMD ["npm", "start"]
 
 
 
