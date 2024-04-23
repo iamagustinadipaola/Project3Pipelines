@@ -29,10 +29,17 @@ pipeline {
                 }
             }
         }
-        stage("Building image"){
-            steps{
-                sh "docker build -t frontend-image ./Frontend"
+        stage("Build Docker Image") {
+            agent any
+            environment {
+        HOME = "${env.WORKSPACE}"
+        }
+            steps {
+               script {
+                dockerImage = docker.build("<docker image name>:${env.BUILD_ID}")
+               }
             }
+        }
         }
         stage("Deploy Image"){
             steps{
