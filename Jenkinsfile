@@ -40,7 +40,6 @@ pipeline {
                }
             }
         }
-        }
         stage("Deploy Image"){
             steps{
                 dir("Frontend"){
@@ -54,3 +53,4 @@ pipeline {
             }
         }
     }
+}
