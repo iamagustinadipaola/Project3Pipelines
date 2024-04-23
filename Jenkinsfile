@@ -32,7 +32,7 @@ pipeline {
         stage("Building image"){
             steps{
                 script {
-                    sh "docker build -t frontend-image ./Frontend"
+                    bat "docker build -t frontend-image ./Frontend"
                 }
             }
         }
