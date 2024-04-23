@@ -29,15 +29,13 @@ pipeline {
                 }
             }
         }
-        stage("Build Docker Image") {
-            agent any
-            environment {
-        HOME = "${env.WORKSPACE}"
-        }
-            steps {
-               script {
-                dockerImage = docker.build
-               }
+        stage("Building image"){
+            steps{
+                dir("Frontend"){
+                script {
+                    dockerImage = docker.build imageName
+                }
+            }
             }
         }
         stage("Deploy Image"){
