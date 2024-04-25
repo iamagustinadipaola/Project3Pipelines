@@ -25,28 +25,23 @@ pipeline {
                 }
             }
         }
-        stage('package'){
-            agent any
+        stage("Building image"){
             steps{
-                sh 'mvn package'
+                dir("Frontend"){
+                    bat "docker build"
+            }
             }
         }
-        stage('deploy'){
-            agent any
+        stage("Deploy Image"){
             steps{
-                sh label: '', script: '''rm -rf dockerimg
-mkdir dockerimg
-cd dockerimg
-cp /var/lib/jenkins/workspace/ContinuousDeploymentJob/gameoflife-web/target/gameoflife.war .
-touch dockerfile
-cat <<EOT>>dockerfile
-FROM tomcat
-ADD gameoflife.war /usr/local/tomcat/webapps/
-CMD ["catalina.sh", "run"]
-EXPOSE 8080
-EOT
-sudo docker build -t webimage:$BUILD_NUMBER .
-sudo docker container run -itd --name webserver$BUILD_NUMBER -p 8080 webimage:$BUILD_NUMBER'''
+                dir("Frontend"){
+                script{
+                    docker.withRegistry("https://registry.hub.docker.com", "dockerhub-creds"){
+                        // Gets number of build which is always unique and pushes it to docker and makes sure each push is unique
+                        dockerImage.push("${env.BUILD_NUMBER}")
+                    }
+                }
+            }
             }
         }
     }
