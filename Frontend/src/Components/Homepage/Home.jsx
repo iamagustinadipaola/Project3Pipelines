@@ -6,7 +6,7 @@ function Home() {
             <br/>
             <br/>
             <br/>
-            <h1>"This is a shop apparently”</h1>
+            <h1>"This is a shop apparently is it?”</h1>
         </div>
     );
 }
