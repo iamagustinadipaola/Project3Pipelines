@@ -25,24 +25,8 @@ pipeline {
                 }
             }
         }
-        stage("Building image"){
-            steps{
-                dir("Frontend"){
-                    bat "docker build"
+        
             }
             }
-        }
-        stage("Deploy Image"){
-            steps{
-                dir("Frontend"){
-                script{
-                    docker.withRegistry("https://registry.hub.docker.com", "dockerhub-creds"){
-                        // Gets number of build which is always unique and pushes it to docker and makes sure each push is unique
-                        dockerImage.push("${env.BUILD_NUMBER}")
-                    }
-                }
-            }
-            }
-        }
-    }
-}
+        
+    
