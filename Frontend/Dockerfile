@@ -1,24 +1,29 @@
-FROM node:latest
+# Use official Node.js image as the base image
+FROM node:14-alpine as build
 
-# Creates a new directory for frontend container
-WORKDIR /frontendapp
+# Set the working directory in the container
+WORKDIR /app
 
-# Moves package json into the directory 
-COPY package.json /frontendapp
+# Copy the package.json and package-lock.json files to the container
+COPY package*.json ./
 
-# Because docker can detect theres a package.json file it allows the npm install to run
+# Install dependencies
 RUN npm install
 
-# Moves over all other files to directory
-COPY . /frontendapp
+# Copy the rest of the application code to the container
+COPY . .
 
+# Build the React app
 RUN npm run build
 
-# 3000 being react default port
-EXPOSE 3000
+# Stage 2: Use NGINX image to serve the React app
+FROM nginx:alpine
 
-# runs the react app, executes commands once the container has started IMPORTANT: with CMD everything is "," separated
-CMD ["npm", "start"]
+# Copy the built React app from the 'build' directory of the 'build' stage to NGINX HTML directory
+COPY --from=build /app/build /usr/share/nginx/html
 
+# Expose port 80 to the outside world
+EXPOSE 80
 
-
+# Command to run NGINX in the foreground
+CMD ["nginx", "-g", "daemon off;"]

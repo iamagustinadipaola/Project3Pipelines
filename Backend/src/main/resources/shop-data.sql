@@ -1,2 +1,0 @@
-INSERT INTO `basket` VALUES (default, 'Michaela14r434r');
-INSERT INTO `item` VALUES (default, 'Milk', 'https://cdn.dribbble.com/users/387221/screenshots/6584182/free-milk-carton-box-packaging-mockup-psd_4x.jpg', 50.0, 1);
